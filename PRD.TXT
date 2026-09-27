@@ -1,2283 +1,1874 @@
-ALPHA V3 — COMPLETE PRODUCTION AI AGENT
-Fresh Cloudflare-Native Rebuild From Reference ZIP
+ALPHA V3 — COMPLETE PRODUCTION REBUILD PRD NULLFORGE PERSONAL AI AGENT
+VERSION 3.0
 
-You are the lead architect, senior full-stack engineer, Cloudflare engineer, security engineer, QA engineer, and UI/UX engineer responsible for rebuilding Alpha V3, a production-ready personal AI agent for the NULLFORGE ecosystem.
+============================================================ 0.
+EXECUTIVE INSTRUCTION
+============================================================
 
-I will provide you with one ZIP file containing the previous Alpha implementation.
+You are the lead architect, senior full-stack engineer, Cloudflare
+engineer, security engineer, QA engineer, and UI/UX engineer responsible
+for building Alpha V3.
 
-The ZIP is a reference artifact, NOT the final project.
+A previous Alpha implementation/reference repository may be supplied
+separately. It is REFERENCE MATERIAL ONLY.
 
-You must study it carefully to understand:
+The final implementation MUST be created as a completely separate, fresh
+project environment.
 
-existing features
-previous architecture
-UI/UX
-API structure
-database concepts
-integrations
-authentication
-AI provider system
-chat behavior
-memory/context behavior
-notes
-files/media
-OAuth
-previous fixes
-previous bugs
-product terminology
-useful implementation ideas
+FINAL PROJECT DIRECTORY:
 
-However:
+    /home/z/my-project/alpha/
 
-DO NOT blindly patch the old project.
+REFERENCE DIRECTORY:
 
-DO NOT assume the old project is correct.
+    /home/z/my-project/alpha-reference/
 
-DO NOT copy old architectural mistakes.
+NEVER use /home/z/my-project itself as the Alpha V3 source project.
 
-DO NOT use the old project's local SQLite/filesystem architecture for production.
+NEVER overwrite the existing parent project.
 
-Build a fresh, clean, production-oriented V3 project using the complete specification below.
+NEVER build Alpha V3 directly inside the reference repository.
 
-1. PRIMARY OBJECTIVE
+The reference repository exists only so that you can study the previous
+product, features, architecture, bugs, terminology, UI, migrations,
+APIs, integrations, and behavior.
 
-Create a completely fresh project:
+The new /home/z/my-project/alpha directory is the ONLY Alpha V3
+implementation target.
 
-/home/z/my-project/alpha/
+============================================================ 1.
+MANDATORY FOLDER ISOLATION
+============================================================
 
-This directory is the actual final source project.
+Before writing Alpha V3 code:
 
-The old ZIP is only the reference.
+1.  Create:
 
-The final project must be:
+        /home/z/my-project/alpha/
 
-clean
-maintainable
-modular
-production-oriented
-Cloudflare-compatible
-secure
-responsive
-polished
-tested
-deployable
-free from fake functionality
-free from placeholder functionality
-free from demo-only implementations
+2.  Create/use a separate reference directory:
 
-The final application is called:
+        /home/z/my-project/alpha-reference/
 
-ALPHA
+3.  Keep the reference implementation read-only from the perspective of
+    V3.
 
-Brand:
+4.  Do not reuse the reference project’s node_modules.
 
-NULLFORGE
-2. IMPORTANT DEVELOPMENT RULE
+5.  Do not reuse the reference project’s build artifacts.
 
-Do NOT start by modifying the old project.
+6.  Do not reuse its .next directory.
 
-Instead:
+7.  Do not reuse its .open-next directory.
 
-/home/z/my-project/
-    old-reference.zip
+8.  Do not reuse its .env files.
+
+9.  Do not copy production secrets.
+
+10. Do not silently convert the old project into V3.
+
+The final source tree must be independently installable and buildable.
+
+If the development environment already contains another Next.js scaffold
+in /home/z/my-project, DO NOT move Alpha V3 into that scaffold.
+
+If the preview system exposes port 3000, configure the NEW Alpha V3
+project inside /home/z/my-project/alpha to run on the available preview
+port as needed. The preview requirement must NEVER cause the source
+project to be moved out of /home/z/my-project/alpha.
+
+============================================================ 2.
+REFERENCE REPOSITORY
+============================================================
+
+If a GitHub repository URL is supplied, clone/fetch it into:
+
+    /home/z/my-project/alpha-reference
+
+Inspect it thoroughly before implementation.
+
+Inspect:
+
+-   README/documentation
+-   PRD.TXT or other product documentation
+-   source code
+-   package.json
+-   configuration
+-   database schema
+-   migrations
+-   API routes
+-   authentication
+-   authorization
+-   AI provider code
+-   chat
+-   memory
+-   context
+-   notes
+-   files
+-   media
+-   OAuth
+-   Gmail
+-   GitHub
+-   UI
+-   components
+-   tests
+-   scripts
+-   deployment configuration
+
+If a production ZIP exists inside the reference repository, inspect it
+as reference material as well.
+
+Do not assume the old implementation is correct.
+
+Identify:
+
+-   useful functionality
+-   broken functionality
+-   architectural problems
+-   security problems
+-   placeholder functionality
+-   fake implementations
+-   schema mismatches
+-   OAuth bugs
+-   UI problems
+-   account-selection bugs
+-   persistence problems
+
+Preserve meaningful product functionality while rebuilding it cleanly.
+
+============================================================ 3. PRIMARY
+PRODUCT GOAL
+============================================================
+
+Alpha is a personal AI agent under the NULLFORGE brand.
+
+Alpha must provide a unified interface for:
+
+-   AI chat
+-   persistent conversations
+-   context
+-   memory
+-   notes
+-   files
+-   media
+-   AI providers
+-   Gmail
+-   Google accounts
+-   GitHub accounts
+-   GitHub repositories/issues/PRs
+-   planner/tasks
+-   tools
+-   account management
+-   integrations
+-   security/audit
+
+The result must feel like a real finished product, not a demo.
+
+============================================================ 4. REQUIRED
+PRODUCTION ARCHITECTURE
+============================================================
+
+MANDATORY:
+
+    Browser
+       |
+       v
+    Next.js
+       |
+       v
+    OpenNext
+       |
+       v
+    Cloudflare Worker
+       |
+       +---- Cloudflare D1
+       |
+       +---- Cloudflare R2
+       |
+       +---- External APIs / OAuth providers
+
+Required stack:
+
+-   Next.js
+-   React
+-   TypeScript
+-   App Router
+-   OpenNext for Cloudflare
+-   Cloudflare Workers
+-   Cloudflare D1
+-   Cloudflare R2
+-   Wrangler
+
+Use versions compatible with the actual environment.
+
+============================================================ 5. STRICTLY
+FORBIDDEN PRODUCTION ARCHITECTURE
+============================================================
+
+DO NOT use:
+
+-   Prisma
+-   Prisma + SQLite
+-   local SQLite database
+-   JSON database
+-   filesystem persistence
+-   local file persistence
+-   Node filesystem as production storage
+-   in-memory persistence
+-   hardcoded database records
+-   fake API responses
+-   mock production data
+
+D1 is the production database.
+
+R2 is the production object storage.
+
+If the reference implementation uses Prisma or SQLite, treat that as
+LEGACY ARCHITECTURE and replace it with a D1-compatible
+repository/database layer.
+
+Do not let an existing scaffold or environment requirement force Prisma
+or SQLite into the production architecture.
+
+============================================================ 6. FRESH
+PROJECT INITIALIZATION
+============================================================
+
+Initialize a clean project inside:
+
+    /home/z/my-project/alpha/
+
+The project should have a professional structure similar to:
+
     alpha/
+      src/
+        app/
+        components/
+        hooks/
+        lib/
+        server/
+        types/
+        styles/
+      migrations/
+      scripts/
+      tests/
+      public/
+      package.json
+      tsconfig.json
+      wrangler.jsonc
+      open-next.config.ts
+      .env.example
+      .gitignore
+      README.md
+      DEPLOYMENT.md
+      worklog.md
 
-Create:
+You may improve the structure when there is a legitimate architectural
+reason.
 
-/home/z/my-project/alpha/
+Do not create unnecessary complexity.
 
-as a fresh project.
+============================================================ 7. DATABASE
+============================================================
 
-Use the ZIP to understand the product and previous implementation.
+Use Cloudflare D1.
 
-Then implement the product properly inside the new alpha directory.
+Create migrations for at least:
 
-3. DO NOT USE OLD LOCAL ARCHITECTURE
+-   users
+-   sessions
+-   conversations
+-   messages
+-   conversation_summaries
+-   memories
+-   notes
+-   files
+-   ai_providers
+-   connected_accounts
+-   planner_tasks
+-   audit_logs
 
-The production architecture MUST NOT depend on:
+Additional tables may be created when needed.
 
-SQLite
-Prisma + SQLite
-local filesystem persistence
-JSON database files
-local-only sessions
-local-only uploads
-server-local storage
-fake in-memory persistence
+Each table should have:
 
-Production persistence must use Cloudflare services.
+-   stable IDs
+-   ownership
+-   timestamps
+-   appropriate indexes
+-   safe foreign keys where supported
+-   appropriate constraints
 
-4. REQUIRED PRODUCTION ARCHITECTURE
+Every query must match the actual D1 schema.
 
-Use:
+No undocumented manual schema changes.
 
-Browser
-   ↓
-Next.js application
-   ↓
-OpenNext
-   ↓
-Cloudflare Worker
-   ├── D1
-   ├── R2
-   ├── Workers-compatible APIs
-   └── external OAuth/API services
+============================================================ 8.
+MIGRATIONS ============================================================
 
-Required technologies:
+All schema changes MUST be represented by migrations.
 
-Next.js
-React
-TypeScript
-OpenNext for Cloudflare
-Cloudflare Workers
-Cloudflare D1
-Cloudflare R2
-Wrangler
+Migrations must be:
 
-Use the current versions that are actually compatible with the environment.
+-   ordered
+-   deterministic
+-   documented
+-   D1-compatible
+-   tested
 
-Do not introduce unnecessary infrastructure.
+Do not depend on the state of a developer’s local database.
 
-5. ENVIRONMENT SETUP
-
-You must initialize the fresh project properly.
-
-Create all required configuration files.
-
-Expected concepts include:
-
-package.json
-tsconfig.json
-next.config.*
-wrangler.jsonc
-open-next.config.*
-.env.example
-.gitignore
-README.md
-DEPLOYMENT.md
-
-Use a clean source structure.
-
-Example:
-
-alpha/
-├── src/
-│   ├── app/
-│   ├── components/
-│   ├── lib/
-│   ├── server/
-│   ├── hooks/
-│   ├── types/
-│   └── styles/
-├── migrations/
-├── scripts/
-├── tests/
-├── public/
-├── wrangler.jsonc
-├── open-next.config.ts
-├── package.json
-├── tsconfig.json
-├── .env.example
-├── README.md
-└── DEPLOYMENT.md
-
-You may improve this structure if there is a better architectural reason.
-
-6. CLOUDFLARE BINDINGS
-
-Production architecture must support:
-
-D1
-
-Primary database.
-
-Use D1 for:
-
-users
-sessions
-conversations
-messages
-summaries
-memories
-notes
-files metadata
-AI providers
-connected accounts
-planner/tasks
-audit logs
-integration state
-other persistent application state
-R2
-
-Object storage for:
-
-uploaded files
-images
-videos
-audio
-documents
-generated media
-user attachments
-
-Never depend on the Worker filesystem for permanent storage.
-
-7. DATABASE DESIGN
-
-Design a proper D1 schema.
-
-At minimum include appropriate tables for:
-
-users
-sessions
-conversations
-messages
-conversation_summaries
-memories
-notes
-files
-ai_providers
-connected_accounts
-planner_tasks
-audit_logs
-
-You may add supporting tables where required.
-
-Every table should have:
-
-proper IDs
-timestamps
-indexes where useful
-foreign keys where appropriate
-ownership boundaries
-safe deletion behavior
-
-Do not create one giant unstructured table.
-
-8. AUTHENTICATION
+============================================================ 9.
+AUTHENTICATION
+============================================================
 
 Implement real authentication.
 
-Requirements:
+Required:
 
-secure password authentication
-password hashing using a Workers-compatible secure algorithm
-secure session tokens
-HTTP-only cookies
-SameSite protection
-secure production cookie configuration
-session expiry
-logout
-session validation
-/me or equivalent endpoint
+-   secure password hashing compatible with Workers
+-   login
+-   logout
+-   session creation
+-   session validation
+-   session expiration
+-   secure cookies
+-   HTTP-only cookies
+-   SameSite protection
+-   secure production configuration
+-   current-user endpoint
 
 Never store plaintext passwords.
 
-Never put sensitive authentication data into client-side localStorage.
+Never expose session secrets to the client.
 
-9. AUTHORIZATION
+Never place sensitive auth state in localStorage.
 
-Every protected server operation must verify:
+============================================================ 10.
+AUTHORIZATION
+============================================================
 
-authenticated user
-+
-resource ownership
-+
-requested permission
+Every protected request must verify:
 
-A user must never be able to access another user's:
+-   authenticated user
+-   ownership
+-   permissions
 
-conversations
-messages
-memories
-notes
-files
-AI credentials
-OAuth tokens
-accounts
-tasks
-audit information
+Users must never access another user’s:
 
-Do not trust IDs coming from the client.
+-   conversations
+-   messages
+-   memories
+-   notes
+-   files
+-   providers
+-   provider credentials
+-   OAuth accounts
+-   tokens
+-   planner tasks
+-   audit records
 
-10. AI PROVIDER SYSTEM
+Never trust userId supplied by the browser.
 
-The AI system must NOT be hardcoded around a fixed number of provider cards.
+Derive identity from the authenticated session.
 
-Build a generic provider architecture.
+============================================================ 11. AI
+PROVIDER SYSTEM
+============================================================
 
-Support:
+Alpha must have a generic AI provider architecture.
 
-Z.ai
-OpenAI
-Groq
-OpenRouter
-custom OpenAI-compatible providers
+Built-in/provider-compatible support should include:
 
-The architecture must also allow users to add additional compatible providers.
+-   Z.ai
+-   OpenAI
+-   Groq
+-   OpenRouter
+-   custom OpenAI-compatible APIs
 
-11. ADD API UI
+Do not hardcode the UI to a fixed set of provider cards.
 
-Create:
+Users must be able to add providers dynamically.
 
-+ Add API
+============================================================ 12. ADD API
+============================================================
 
-When clicked, show a polished modal.
+Create a polished:
+
+    + Add API
+
+workflow.
 
 Fields:
 
-Provider Name
-API Key
-Base URL
-Model
-Vision Model
-Image Model
-Video Model
+-   Provider Name
+-   API Key
+-   Base URL
+-   Model
+-   Vision Model
+-   Image Model
+-   Video Model
 
 Capabilities:
 
-Text
-Vision
-Image Generation
-Video
-Reasoning
-Fast
+-   Text
+-   Vision
+-   Image Generation
+-   Video
+-   Reasoning
+-   Fast
 
-The user must be able to configure custom providers.
+The provider architecture should support future capabilities without
+requiring a rewrite.
 
-12. PROVIDER CREDENTIAL SECURITY
+============================================================ 13.
+PROVIDER CREDENTIAL ENCRYPTION
+============================================================
 
-API keys must NEVER be stored plaintext.
+API credentials must never be stored plaintext.
 
-Implement:
+Use strong authenticated encryption, such as:
 
-AES-256-GCM
-+
-secure key derivation
-+
-server-side encryption
+-   AES-256-GCM
+-   secure key derivation
+-   server-side secret
 
-The encryption master secret must come from a Worker secret.
+Required Worker secret:
 
-Example:
+    AI_CREDENTIALS_SECRET
 
-AI_CREDENTIALS_SECRET
+Never expose:
 
-Never expose provider API keys to:
+-   API keys
+-   encryption keys
+-   decrypted credentials
+-   OAuth tokens
 
-React
-browser JavaScript
-API responses
-logs
-error messages
+to browser code or API responses.
 
-The frontend should only receive safe metadata.
+Never log credentials.
 
-13. PROVIDER TESTING
+============================================================ 14.
+PROVIDER TEST & ADD
+============================================================
 
-When user clicks:
+When the user chooses:
 
-Test & Add
+    Test & Add
 
-the server must actually test the provider.
-
-Do not simply pretend the API works.
+perform an actual provider request.
 
 Verify:
 
-credentials
-endpoint
-model
-response
-protocol compatibility
+-   API key
+-   endpoint
+-   model
+-   protocol
+-   response
 
-Only save the provider as healthy after successful validation.
+Only save the provider after validation succeeds.
 
-Errors must be shown clearly.
+Display useful errors if it fails.
 
-14. PROVIDER ROUTER
+Do not fake a successful test.
 
-Create a generic AI router.
-
-Responsibilities:
-
-capability matching
-priority
-fallback
-health tracking
-cooldown
-retry
-max attempts
-provider selection
-model selection
-vision routing
-image routing
-video routing
-
-Example:
-
-User message
-    ↓
-Need text?
-    ↓
-find healthy text providers
-    ↓
-priority order
-    ↓
-provider request
-    ↓
-success → return
-failure → cooldown + fallback
-
-Do not endlessly retry broken APIs.
-
-15. CHAT SYSTEM
-
-Chat is the core of Alpha.
-
-It must be real.
+============================================================ 15. AI
+PROVIDER ROUTER
+============================================================
 
 Implement:
 
-conversations
-persistent messages
-message history
-streaming where compatible
-provider information
-attachments
-retry
-error states
-regeneration where appropriate
-conversation rename
-conversation delete
-new conversation
-conversation switching
-
-Every message must persist to D1.
-
-16. CHAT UI
-
-The chat interface must be premium and professional.
-
-Do NOT make it look like a generic template.
-
-Design language:
-
-BLACK
-DARK CHARCOAL
-SUBTLE AMBER
-SOFT WHITE
-
-NULLFORGE aesthetic.
-
-Avoid:
-
-excessive empty space
-giant cards
-unnecessary gradients
-childish UI
-excessive rounded containers
-fake dashboard widgets
-placeholder blocks
-17. CHAT LAYOUT
-
-Use a stable viewport architecture.
-
-Concept:
-
-100dvh
- ├── header
- ├── messages viewport
- └── fixed composer
-
-The message list must be the main scroll container.
-
-Composer must NOT continuously push the page downward as messages increase.
-
-Use proper flex/min-height behavior.
-
-Example conceptual structure:
-
-h-dvh
-overflow-hidden
-flex flex-col
-
-with:
-
-messages → flex-1 overflow-y-auto
-composer → flex-shrink-0
-18. CHAT COMPOSER
-
-Composer should support:
-
-text
-Enter to send
-Shift+Enter newline
-attachment
-image attachment
-provider/model indicator
-loading state
-stop generation
-retry
-clear error
-disabled state when appropriate
-
-Add:
-
-Jump to latest
-
-when the user scrolls away from the newest messages.
-
-During streaming:
-
-automatically follow the latest content when appropriate
-do not aggressively steal scrolling when the user manually scrolls upward
-19. FILE ATTACHMENTS
-
-Users must be able to attach files.
+-   capability matching
+-   model selection
+-   priority
+-   fallback
+-   health
+-   cooldown
+-   retries
+-   max attempts
+-   provider failure tracking
 
 Flow:
 
-Browser
- ↓
-authenticated upload endpoint
- ↓
-R2
- ↓
-D1 metadata
+    request
+      |
+      v
+    capability match
+      |
+      v
+    healthy providers
+      |
+      v
+    priority
+      |
+      v
+    request
+      |
+      +--> success
+      |
+      +--> failure -> cooldown -> fallback
 
-Store:
+Do not retry indefinitely.
 
-file ID
-owner
-R2 key
-filename
-MIME
-size
-timestamps
-optional checksum
-metadata
+============================================================ 16. CHAT
+============================================================
 
-Never expose arbitrary R2 keys directly.
+Chat is the core feature.
 
-20. MEDIA GALLERY
+Implement:
 
-Build a proper media/files area.
+-   new conversation
+-   conversation list
+-   rename
+-   delete
+-   switch conversation
+-   persistent messages
+-   AI responses
+-   streaming where supported
+-   retry
+-   regeneration where appropriate
+-   attachment support
+-   provider/model indicator
+-   error handling
+-   loading state
+-   stop generation
+
+Every message must persist in D1.
+
+============================================================ 17. CHAT UI
+============================================================
+
+Create a premium NULLFORGE interface.
+
+Visual direction:
+
+-   black
+-   dark charcoal
+-   subtle amber accent
+-   soft white text
+-   restrained borders
+-   professional typography
+-   minimal but polished
+
+Avoid:
+
+-   childish styling
+-   generic template appearance
+-   excessive cards
+-   excessive gradients
+-   giant empty areas
+-   fake dashboard statistics
+-   unfinished-looking panels
+
+============================================================ 18. CHAT
+LAYOUT ============================================================
+
+Use a bounded viewport layout.
+
+Concept:
+
+    100dvh
+      |
+      +-- header
+      |
+      +-- messages viewport
+      |
+      +-- composer
+
+The messages viewport must be the main scrolling container.
+
+The composer must remain stable.
+
+Messages must not cause the entire page to continuously grow downward.
 
 Support:
 
-images
-videos
-audio
-documents
-generic files
+-   jump to latest
+-   smooth streaming scroll
+-   user-controlled scrolling
+-   mobile keyboard behavior
 
-UI should allow:
+============================================================ 19. CHAT
+COMPOSER ============================================================
 
-list/grid
-preview
-metadata
-download
-delete
-search/filter where practical
+Support:
 
-Use signed/authorized access.
+-   text input
+-   Enter to send
+-   Shift+Enter newline
+-   file attachment
+-   image attachment
+-   provider indicator
+-   model indicator
+-   loading
+-   stop
+-   retry
+-   errors
 
-21. NOTES
+When the user scrolls away from the bottom, show a:
 
-Build a real notes system.
+    Jump to latest
 
-Features:
+control.
 
-create
-edit
-delete
-search
-list
-open
-persistent storage
+During streaming, follow the bottom intelligently without forcibly
+stealing the user’s scroll position.
 
-Notes must use D1.
+============================================================ 20. CONTEXT
+SYSTEM ============================================================
 
-Do not use:
+Do not send the entire conversation on every request.
 
-localStorage
-filesystem
-hardcoded arrays
-mock data
-22. MEMORY SYSTEM
+Use layered context.
 
-Alpha needs persistent memory.
+Layer 1: Recent messages, approximately the latest 16 messages.
 
-Users should be able to explicitly tell Alpha things such as:
+Layer 2: Rolling conversation summary.
 
-Remember that...
+Layer 3: Relevant older history.
 
-Only persist appropriate information.
+Layer 4: Relevant persistent memory.
 
-Memory system must include:
+Context must be budgeted.
 
-create
-retrieve
-update
-delete
-deduplicate
-ownership isolation
+Approximate budgets:
 
-Never expose memory belonging to another account.
+-   summary: 600 tokens
+-   relevant history: 1200 tokens
+-   persistent memory: 400 tokens
 
-23. CONVERSATION CONTEXT
+Adapt budgets based on model context limits.
 
-Do NOT send the entire conversation blindly on every request.
+============================================================ 21. ROLLING
+SUMMARY ============================================================
 
-Implement layered context.
+Store conversation summaries in D1.
 
-Layer 1 — Recent messages
+When enough uncovered messages accumulate, update the summary.
 
-Keep a recent window, approximately:
+A reasonable threshold is approximately:
 
-last 16 messages
+    24 uncovered messages
 
-Adjust dynamically where necessary.
+The exact implementation may be adjusted based on testing.
 
-Layer 2 — Rolling summary
+Never regenerate unnecessarily.
 
-Maintain a conversation summary in D1.
+============================================================ 22.
+RELEVANT HISTORY
+============================================================
 
-When conversation grows beyond a threshold, update the summary.
+Retrieve older messages based on relevance to the current request.
 
-Example threshold:
+A lexical/relevance implementation is acceptable for V3.
 
-24 uncovered messages
-Layer 3 — Relevant history
+Design the retrieval layer so that semantic/vector retrieval can be
+introduced later without rewriting the entire context architecture.
 
-Retrieve relevant older messages based on the current request.
+Never dump the entire message history.
 
-Start with efficient lexical/relevance retrieval.
+============================================================ 23.
+PERSISTENT MEMORY
+============================================================
 
-Design it so semantic/vector retrieval can be introduced later without rewriting the architecture.
+Implement persistent memory.
 
-Layer 4 — Persistent memory
+Explicit user intent such as:
 
-Include only relevant user memories.
+    Remember that ...
 
-24. CONTEXT BUDGET
+should be able to create memory.
 
-Prevent token explosion.
+Memory must support:
 
-Use reasonable budgets approximately:
+-   create
+-   retrieve
+-   update
+-   delete
+-   deduplication
+-   ownership
 
-summary: ~600 tokens
-relevant history: ~1200 tokens
-persistent memory: ~400 tokens
+Do not store obvious secrets.
 
-The exact implementation can adapt based on model context size.
+Reject or protect content resembling:
 
-Never blindly dump the entire database into the prompt.
+-   passwords
+-   API keys
+-   access tokens
+-   refresh tokens
+-   private credentials
 
-25. CONTEXT SAFETY
+============================================================ 24. NOTES
+============================================================
 
-Do not allow:
+Implement real persistent notes.
 
-secrets
-passwords
-API keys
-OAuth tokens
-internal credentials
+Support:
 
-to accidentally enter persistent memory.
+-   create
+-   edit
+-   save
+-   delete
+-   search
+-   list
+-   open
 
-Detect obvious secret-like content.
+Use D1.
 
-Do not store arbitrary sensitive strings just because the user says something resembling:
+No localStorage-only notes.
 
-remember this API key
-26. NULLFORGE BRANDING
+No hardcoded notes.
 
-The UI must clearly belong to NULLFORGE.
+============================================================ 25. FILES
+AND R2 ============================================================
 
-Use:
+Use Cloudflare R2 for persistent object storage.
 
-NULLFORGE
+Support:
 
-as the primary visual identity.
+-   upload
+-   metadata
+-   list
+-   preview where appropriate
+-   download
+-   delete
 
-Avoid a generic circular logo.
+D1 stores metadata.
 
-27. LAUNCH ANIMATION
+R2 stores the actual object.
 
-Create a premium launch animation.
+Metadata should include:
 
-Requirements:
+-   file ID
+-   owner
+-   filename
+-   MIME type
+-   size
+-   R2 key
+-   created timestamp
+-   optional checksum
 
-black background
-NULLFORGE text
-smooth animation
-professional
-subtle
-not flashy
-not childish
-approximately 3–4 seconds
-text remains visually readable as NULLFORGE
-smooth letter reveal / wordmark animation
-proper easing
-no abrupt movement
-no looping after launch
-respect prefers-reduced-motion
+Authorize every object access.
 
-After animation:
+Never expose unrestricted bucket access.
 
-→ main Alpha interface
+============================================================ 26. MEDIA
+============================================================
 
-Do not replay unnecessarily on every tiny navigation event.
+Provide a media/file area for:
 
-28. GOOGLE OAUTH
+-   images
+-   videos
+-   audio
+-   documents
+-   generic files
+
+Provide useful preview and metadata where possible.
+
+============================================================ 27. GOOGLE
+OAUTH ============================================================
 
 Implement real Google OAuth.
 
 Required:
 
-explicit Connect button
-OAuth state generation
-state validation
-callback
-token exchange
-encrypted token storage
-refresh token handling
-disconnect
-account identity
-account selection
+-   explicit Connect action
+-   secure state
+-   state validation
+-   callback
+-   token exchange
+-   encrypted token storage
+-   refresh handling
+-   identity
+-   disconnect
+-   account switching
 
-Google/Gmail must NEVER automatically connect simply because a page mounted.
+NEVER automatically start OAuth on page mount.
 
-No:
+Forbidden behavior:
 
-useEffect(() => connectGoogle())
+    page opens
+    -> automatically starts Google OAuth
 
-No automatic OAuth.
+OAuth must begin only after an explicit user action.
 
-Only explicit user action.
+============================================================ 28. GMAIL
+============================================================
 
-29. GMAIL
+Implement real Gmail functionality.
 
-Gmail integration must be real.
+Support appropriate:
 
-Support appropriate operations such as:
+-   account identity
+-   inbox/search
+-   message reading
+-   message details
+-   compose
+-   send
 
-account identity
-inbox metadata
-search
-read
-message details
-compose
-send
+Sending email requires explicit confirmation.
 
-Sending email must require explicit user confirmation.
+Before sending, clearly show:
 
-Before sending, show:
+-   sending account
+-   recipient
+-   subject
+-   message
 
-From:
-To:
-Subject:
-Message:
+The user must explicitly confirm.
 
-The exact Google account being used must be visible.
+============================================================ 29.
+MULTIPLE GOOGLE ACCOUNTS
+============================================================
 
-No silent sending.
-
-30. MULTIPLE GOOGLE ACCOUNTS
-
-A user may connect multiple Google accounts.
+A user may connect unlimited Google/Gmail accounts subject to provider
+limits.
 
 Example:
 
-Personal Gmail
-School Gmail
-Work Gmail
+    Personal
+    School
+    Work
 
-Do NOT assume:
+Every account is a separate connected-account record.
 
-latest account = active account
+Support:
 
-Each account must have a unique connected-account record.
+-   connect another account
+-   list accounts
+-   select account
+-   default account
+-   disconnect exact account
+-   display email/identity
 
-User must be able to:
+Do not silently select the newest account.
 
-connect another account
-disconnect a specific account
-select active account
-set default account
-see account email
-switch account
+Use account selection behavior such as:
 
-OAuth should use account selection behavior such as:
-
-prompt=select_account
+    prompt=select_account
 
 where appropriate.
 
-31. GITHUB OAUTH
+============================================================ 30. GITHUB
+OAUTH ============================================================
 
 Implement real GitHub OAuth.
 
-Requirements:
+Support:
 
-explicit Connect button
-state validation
-callback
-token exchange
-encrypted token storage
-identity
-repositories
-issues
-pull requests
-disconnect
-account switching
+-   explicit connect
+-   state validation
+-   callback
+-   token exchange
+-   encrypted token storage
+-   identity
+-   repositories
+-   issues
+-   pull requests
+-   disconnect
+-   account selection
 
-No automatic connection.
+Do not automatically connect GitHub.
 
-32. MULTIPLE GITHUB ACCOUNTS
+============================================================ 31.
+MULTIPLE GITHUB ACCOUNTS
+============================================================
 
 Support multiple GitHub accounts.
 
 Example:
 
-GitHub #1
-GitHub #2
-GitHub #3
+    GitHub Account 1
+    GitHub Account 2
 
-The user must explicitly select which account an operation uses.
+Every account must be separately selectable.
 
-Never silently choose the newest account.
+Never silently use the newest account.
 
-33. GITHUB ACCOUNT ROLES
+============================================================ 32. GITHUB
+ROLES ============================================================
 
-Allow assigning roles:
+Allow account-level roles:
 
-Storage
-Scripts
-General
+-   Storage
+-   Scripts
+-   General
 
 Example:
 
-GitHub Account 1
-Role: Storage
+    GitHub #1 -> Storage
+    GitHub #2 -> Scripts
 
-GitHub Account 2
-Role: Scripts
+Roles are routing metadata.
 
-This is account-level routing metadata.
+They must not be used to silently grant permissions beyond the OAuth
+token’s actual permissions.
 
-Create a centralized account resolver:
+============================================================ 33. ACCOUNT
+RESOLVER ============================================================
 
-explicit accountId
-        ↓
-role match
-        ↓
-explicit default
-        ↓
-single-account fallback
-        ↓
-ambiguous → ask user / return safe error
+Create a centralized account resolver.
+
+Resolution order:
+
+1.  explicit accountId
+2.  role match
+3.  explicit default
+4.  single-account fallback
+5.  ambiguous -> safe error/request selection
 
 Never silently guess between multiple accounts.
 
-34. CONNECTED ACCOUNT ARCHITECTURE
+All Gmail/GitHub operations must use this resolver.
 
-Create a generic connected account model.
+============================================================ 34.
+CONNECTED ACCOUNT DATA MODEL
+============================================================
 
-Conceptually:
+Create a generic connected account model with appropriate fields such
+as:
 
-connected_accounts
+-   id
+-   user_id
+-   provider
+-   provider_account_id
+-   email
+-   display_name
+-   encrypted credentials
+-   role
+-   default flag
+-   created_at
+-   updated_at
 
-fields should include appropriate values for:
+Do not hardcode a single account per provider.
 
-id
-user_id
-provider
-provider_account_id
-display_name
-email
-encrypted_credentials
-role
-is_default
-created_at
-updated_at
+============================================================ 35. OAUTH
+SECURITY ============================================================
 
-Do not create a separate hardcoded architecture for every OAuth provider.
+Implement:
 
-35. OAUTH SECURITY
+-   cryptographically secure state
+-   expiration
+-   provider binding
+-   constant-time comparison where appropriate
+-   redirect validation
+-   secure callback handling
+-   encrypted token storage
+-   no token logging
 
-OAuth must include:
+Be especially careful that generated state is compared exactly.
 
-cryptographically secure state
-state cookie/session binding
-constant-time comparison where appropriate
-expiration
-redirect validation
-exact callback validation
-encrypted token storage
-no token logging
+Never accidentally transform:
 
-Important:
+    google:<random>
 
-If generated state is:
+into:
 
-google:<random>
+    google:google:<random>
 
-then verification must compare the exact generated state.
+============================================================ 36. GITHUB
+SCOPE ============================================================
 
-Do NOT accidentally create:
+Request only the minimum GitHub scopes required by the actual
+functionality.
 
-google:google:<random>
-36. API ROUTES
+Do not request broad permissions merely for convenience.
 
-Audit every API route.
+If a feature does not require repository write access, do not request
+write access.
 
-Every route must have:
+============================================================ 37. PLANNER
+============================================================
 
-validation
-authentication where required
-authorization
-correct HTTP status
-structured errors
-no secrets in responses
-no fake response
-
-Use a consistent response/error architecture.
-
-37. INPUT VALIDATION
-
-Validate:
-
-body
-query
-params
-IDs
-file metadata
-provider configuration
-OAuth parameters
-
-Do not trust client-provided:
-
-userId
-account ownership
-file ownership
-conversation ownership
-
-Derive identity from the authenticated session.
-
-38. ERROR HANDLING
-
-No raw SQL errors should reach users.
-
-For example, do NOT show:
-
-SQLITE_ERROR
-no such column
-constraint failed
-
-Instead:
-
-Something went wrong while saving your message.
-Please try again.
-
-while logging safe diagnostic information server-side.
-
-Development errors can be detailed locally.
-
-Production errors must be safe.
-
-39. DATABASE ERROR PREVENTION
-
-Before finalization:
-
-inspect every query
-verify every column
-verify every migration
-verify indexes
-verify parameter order
-verify schema/query consistency
-test insert/update/select/delete
-test empty states
-test concurrent behavior where relevant
-
-The previously observed chat SQL error MUST NOT reappear.
-
-40. MIGRATIONS
-
-Create proper migrations:
-
-migrations/
-    0001_initial.sql
-    0002_...
-    0003_...
-
-All production schema changes must be represented by migrations.
-
-Do not rely on undocumented manual schema modifications.
-
-Make migration ordering deterministic.
-
-41. D1 COMPATIBILITY
-
-Ensure all database code works in Cloudflare D1.
-
-Do NOT accidentally depend on:
-
-PostgreSQL-only syntax
-MySQL-only syntax
-SQLite extensions unavailable in D1
-Node-only filesystem behavior
-
-Use Cloudflare-supported APIs.
-
-42. CRON / AUTONOMOUS DEVELOPMENT LOOP
-
-While developing, if the environment supports scheduled/continuous execution, use a development loop approximately every 15 minutes.
-
-Concept:
-
-inspect
-→ test
-→ identify bug
-→ fix
-→ build
-→ browser QA
-→ regression test
-→ repeat
-
-Do not stop after the first successful build.
-
-Continuously look for:
-
-broken buttons
-placeholder screens
-console errors
-API failures
-DB errors
-OAuth bugs
-responsive issues
-accessibility issues
-race conditions
-loading-state problems
-stale state
-incorrect account selection
-security issues
-
-If the environment cannot support a true cron, emulate the same iterative workflow manually during the task.
-
-43. NO FAKE FEATURES
-
-This is extremely important.
-
-Do NOT leave:
-
-Coming soon
-TODO
-Demo
-Mock
-Placeholder
-Fake API response
-Fake OAuth
-Simulated connection
-Static dashboard values
-Hardcoded messages
-
-unless it is explicitly identified as a non-production internal test.
-
-Every visible user feature must either:
-
-work fully, or
-not exist in the final UI.
-44. NO DEAD BUTTONS
-
-Every button must have a real purpose.
-
-Audit:
-
-sidebar
-chat
-settings
-integrations
-notes
-files
-media
-planner
-account controls
-provider controls
-
-Click every important control.
-
-45. SIDEBAR
-
-Build a clean professional sidebar.
-
-Possible sections:
-
-New Chat
-
-Chats
-
-Notes
-
-Files
-
-Media
-
-Planner
-
-Integrations
-
-Settings
-
-Use the exact final structure that makes the product coherent.
-
-Avoid excessive navigation.
-
-46. SETTINGS
-
-Settings should contain real configuration.
-
-Possible sections:
-
-Profile
-Security
-AI Providers
-Connected Accounts
-Appearance
-Memory
-
-Only display settings that actually work.
-
-47. INTEGRATIONS UI
-
-Create a professional integrations page.
-
-Cards for:
-
-Google / Gmail
-GitHub
-
-Each card should show:
-
-Connected
-Not connected
-Account count
-Selected account
-
-Buttons:
-
-Connect
-Manage
-Disconnect
-
-Never auto-connect.
-
-48. ACCOUNT SWITCHING UI
-
-For providers with multiple accounts:
-
-Account selector
-
-must be visible where relevant.
-
-Example:
-
-Gmail
-[ yash@gmail.com ▼ ]
-
-GitHub:
-
-GitHub
-[ Account 1 ▼ ]
-
-If a role is used:
-
-Storage Account
-Scripts Account
-
-must be understandable.
-
-49. NOTES UI
-
-Notes should feel like a real productivity feature.
+Implement persistent planner/tasks.
 
 Support:
 
-New Note
-Search
-Edit
-Save
-Delete
+-   create
+-   list
+-   edit
+-   complete
+-   delete
+-   due date
 
-Use clean typography and good spacing.
-
-50. FILE UI
-
-Files page should feel like a real file manager.
-
-Display:
-
-filename
-type
-size
-date
-preview if possible
-
-Actions:
-
-open
-download
-delete
-51. PLANNER
-
-Create a persistent planner/task system.
-
-Support:
-
-task creation
-due date
-completion
-deletion
-listing
-persistence
-
-If reminders are implemented, ensure they use a real scheduling mechanism.
+Persist to D1.
 
 Do not display fake tasks.
 
-52. AI TOOLS
+============================================================ 38. TOOLS
+============================================================
 
-Create a clean server-side tool architecture.
+Create a server-side tool architecture for:
 
-Potential tools:
-
-notes
-files
-memory
-planner
-gmail
-github
+-   notes
+-   files
+-   memory
+-   planner
+-   Gmail
+-   GitHub
 
 Every tool must:
 
-authenticate
-authorize
-validate arguments
-enforce ownership
-return structured results
-handle errors
-53. TOOL SAFETY
+-   authenticate
+-   authorize
+-   validate
+-   enforce ownership
+-   return structured output
+-   handle failures
 
-Tools capable of external side effects require confirmation.
+============================================================ 39.
+SIDE-EFFECT CONFIRMATION
+============================================================
+
+Actions with external side effects require confirmation.
 
 Especially:
 
-send email
-delete data
-modify external resources
+-   sending email
+-   deleting important data
+-   external writes
 
-Read-only operations may be automatic where appropriate.
+Read-only operations can be automatic when safe.
 
-54. GITHUB OPERATIONS
+============================================================ 40. API
+ARCHITECTURE
+============================================================
 
-Support real safe operations such as:
+Audit every API route.
 
-identity
-repositories
-issues
-pull requests
-metadata
+Every protected route must have:
 
-Do NOT claim arbitrary GitHub file storage functionality unless it is genuinely implemented and tested.
+-   authentication
+-   authorization
+-   validation
+-   correct status code
+-   structured response
+-   safe error
+-   no secret exposure
 
-If implementing file operations:
+Do not create dead routes.
 
-validate repository
-validate path
-validate branch
-explicit account
-safe write confirmation
-proper GitHub API handling
-55. SECURITY AUDIT
+============================================================ 41. ERROR
+HANDLING ============================================================
 
-Perform a full security audit.
+Never expose raw production database errors.
 
-Check:
+Bad:
 
-auth
-sessions
-CSRF/state
-OAuth
-cookies
-XSS
-injection
-SQL injection
-authorization
-IDOR
-file upload
-R2 access
-API keys
-OAuth tokens
-logs
-error messages
-rate limiting where appropriate
-56. SECRET MANAGEMENT
+    SQL_ERROR
+    no such column
+    constraint failed
 
-.env.example should document required variables without real values.
+Good:
 
-Expected secrets may include:
+    We couldn't save your message. Please try again.
 
-AUTH_SECRET
-AI_CREDENTIALS_SECRET
+Keep detailed diagnostics server-side without exposing secrets.
 
-GOOGLE_CLIENT_ID
-GOOGLE_CLIENT_SECRET
+============================================================ 42.
+DATABASE/QUERY CONSISTENCY
+============================================================
 
-GITHUB_CLIENT_ID
-GITHUB_CLIENT_SECRET
+Before completion:
 
-Do not commit actual secrets.
+-   inspect every query
+-   inspect every migration
+-   verify column names
+-   verify parameter order
+-   verify indexes
+-   verify ownership
+-   test insert
+-   test update
+-   test select
+-   test delete
 
-Do not include secrets in the final ZIP.
+The chat persistence flow must be regression-tested specifically.
 
-57. OAUTH CALLBACKS
+============================================================ 43.
+SECURITY ============================================================
 
-Production callbacks must be configurable and documented.
+Audit:
 
-Expected Alpha domain:
+-   authentication
+-   authorization
+-   session handling
+-   cookies
+-   OAuth state
+-   IDOR
+-   XSS
+-   injection
+-   SQL injection
+-   file uploads
+-   R2 authorization
+-   secrets
+-   token exposure
+-   logs
+-   error responses
 
-https://alpha02.org
+Fix issues rather than documenting them as acceptable when reasonably
+fixable.
+
+============================================================ 44. SECRET
+MANAGEMENT ============================================================
+
+Provide .env.example only.
+
+Potential secrets:
+
+    AUTH_SECRET
+    AI_CREDENTIALS_SECRET
+    GOOGLE_CLIENT_ID
+    GOOGLE_CLIENT_SECRET
+    GITHUB_CLIENT_ID
+    GITHUB_CLIENT_SECRET
+
+Never commit real secrets.
+
+Never place .env in the final repository/ZIP.
+
+============================================================ 45. OAUTH
+CALLBACKS ============================================================
+
+Production domain:
+
+    https://alpha02.org
 
 Google:
 
-https://alpha02.org/api/v1/integrations/google/callback
+    https://alpha02.org/api/v1/integrations/google/callback
 
 GitHub:
 
-https://alpha02.org/api/v1/integrations/github/callback
+    https://alpha02.org/api/v1/integrations/github/callback
 
-Do not hardcode secrets.
+Document these in DEPLOYMENT.md.
 
-Domain configuration may be environment-driven.
+Use environment configuration where appropriate.
 
-58. RESPONSIVE DESIGN
+============================================================ 46. UI / UX
+============================================================
 
-Test:
+The interface must feel like a finished NULLFORGE product.
 
-320px
-375px
-390px
-430px
-768px
-1024px
-1280px
-1440px
-1920px
+Primary aesthetic:
 
-Must work on:
+-   black
+-   near-black
+-   subtle amber
+-   clean white/gray typography
+-   restrained motion
 
-mobile
-tablet
-laptop
-desktop
+Do not create:
+
+-   excessive cards
+-   fake statistics
+-   empty dashboard space
+-   giant buttons
+-   childish gradients
+-   unfinished panels
+
+Every screen should have a clear purpose.
+
+============================================================ 47.
+NULLFORGE LAUNCH ANIMATION
+============================================================
+
+Create a premium launch animation.
+
+Requirements:
+
+-   black background
+-   NULLFORGE wordmark
+-   smooth letter/word reveal
+-   approximately 3–4 seconds
+-   subtle easing
+-   professional
+-   no abrupt fast animation
+-   no continuous loop
+-   respect prefers-reduced-motion
+
+The word NULLFORGE must remain visually readable.
+
+After completion, transition cleanly into Alpha.
+
+============================================================ 48. SIDEBAR
+============================================================
+
+Provide coherent navigation for relevant features, such as:
+
+-   New Chat
+-   Chats
+-   Notes
+-   Files
+-   Media
+-   Planner
+-   Integrations
+-   Settings
+
+Do not include navigation entries for features that do not exist.
+
+============================================================ 49.
+INTEGRATIONS UI
+============================================================
+
+Integrations should clearly show:
+
+-   connected/not connected
+-   number of accounts
+-   selected account
+-   default account
+
+Buttons:
+
+-   Connect
+-   Manage
+-   Disconnect
+-   Switch account
+
+No automatic OAuth.
+
+============================================================ 50. ACCOUNT
+SWITCHING UI
+============================================================
+
+When multiple accounts exist, make the selected account obvious.
+
+Example:
+
+    Gmail
+    [ selected-account@email.com ]
+
+GitHub:
+
+    GitHub
+    [ selected account ]
+
+Role-based account choices should be understandable.
+
+============================================================ 51.
+RESPONSIVE DESIGN
+============================================================
+
+Test at:
+
+-   320px
+-   375px
+-   390px
+-   430px
+-   768px
+-   1024px
+-   1280px
+-   1440px
+-   1920px
 
 No horizontal overflow.
 
-Chat composer must remain usable on mobile.
+Chat must remain usable on mobile.
 
-Sidebar should adapt properly.
+============================================================ 52.
+ACCESSIBILITY
+============================================================
 
-59. ACCESSIBILITY
+Verify:
 
-Check:
+-   keyboard navigation
+-   focus
+-   labels
+-   semantic buttons
+-   dialogs
+-   escape handling
+-   contrast
+-   reduced motion
+-   screen-reader labels
 
-keyboard navigation
-focus states
-labels
-button semantics
-contrast
-dialogs
-escape behavior
-reduced motion
-screen-reader-friendly labels
+============================================================ 53.
+PERFORMANCE ============================================================
 
-Do not rely only on color.
+Avoid:
 
-60. PERFORMANCE
+-   unnecessary client rendering
+-   duplicate requests
+-   aggressive polling
+-   repeated OAuth calls
+-   unnecessary database queries
+-   oversized bundles
 
-Avoid unnecessary:
+Use sensible loading states.
 
-client-side rendering
-huge bundles
-duplicate requests
-polling loops
-repeated OAuth status calls
-excessive database queries
+============================================================ 54. NO
+AUTO-CONNECT BUG
+============================================================
 
-Chat should feel responsive.
+Explicitly search for and prevent patterns where merely opening an
+integration page causes OAuth.
 
-Use loading skeletons/spinners only where appropriate.
+The flow must be:
 
-61. OAUTH POLLING BUG PREVENTION
+    user clicks Connect
+        ->
+    OAuth starts
 
-Do not continuously call OAuth connection endpoints from page mount unless genuinely required.
+NOT:
 
-Never create:
+    page loads
+        ->
+    OAuth starts
 
-page opens
-→ status request
-→ status request
-→ status request
-→ automatic OAuth
+============================================================ 55. NO
+PLACEHOLDERS
+============================================================
 
-OAuth should be event-driven.
+Production UI must not contain:
 
-62. CONCURRENCY
+-   Coming Soon
+-   TODO
+-   FIXME
+-   Demo
+-   Mock
+-   Dummy
+-   Fake
+-   Placeholder
+-   Not implemented
 
-Consider:
+Remove unfinished production-facing functionality.
 
-two messages sent quickly
-multiple tabs
-duplicate OAuth callbacks
-simultaneous file uploads
-account switching while requests are running
-provider failure during streaming
+Every visible button must work.
 
-Avoid race conditions.
-
-63. AUDIT LOG
-
-Implement safe audit logging for important actions.
-
-Examples:
-
-login
-logout
-provider added
-provider removed
-Google connected
-Google disconnected
-GitHub connected
-GitHub disconnected
-email sent
-file uploaded
-file deleted
-
-Never log:
-
-API keys
-OAuth tokens
-passwords
-raw authorization headers
-64. API DOCUMENTATION
-
-Document important API routes.
-
-At minimum document:
-
-auth
-chat
-conversations
-messages
-memory
-notes
-files
-AI providers
-Google OAuth
-Gmail
-GitHub
-connected accounts
-planner
-65. TESTING
+============================================================ 56. TESTING
+============================================================
 
 Create automated tests.
 
-At minimum:
+Unit tests:
 
-Unit tests
-auth
-provider router
-encryption
-account resolver
-context builder
-memory
-validation
-Integration tests
-D1 repositories
-API routes
-OAuth state
-account selection
-Gmail account routing
-GitHub account routing
-Security tests
-unauthorized access
-cross-user access
-invalid OAuth state
-invalid account IDs
-token exposure
-SQL injection attempts
-66. OAUTH TESTS
+-   auth
+-   encryption
+-   provider router
+-   account resolver
+-   context builder
+-   memory
+-   validation
 
-Explicitly test:
+Integration tests:
 
-valid state
-invalid state
-expired state
-wrong provider state
-callback without code
-callback with invalid code
-duplicate callback
-multiple accounts
-disconnect exact account
-switch account
+-   D1 repositories
+-   APIs
+-   OAuth state
+-   multi-account routing
+-   Gmail
+-   GitHub
 
-Ensure invalid state produces a safe error.
+Security tests:
 
-67. MULTI-ACCOUNT TESTS
+-   unauthorized requests
+-   cross-user access
+-   invalid OAuth state
+-   wrong account
+-   secret exposure
+-   injection
+
+============================================================ 57. OAUTH
+TEST MATRIX ============================================================
 
 Test:
 
-Google account A
-Google account B
+-   valid state
+-   invalid state
+-   expired state
+-   wrong provider state
+-   missing code
+-   invalid code
+-   duplicate callback
+-   multiple accounts
+-   exact-account disconnect
+-   switching account
+-   default account
 
-GitHub account A
-GitHub account B
+============================================================ 58.
+MULTI-ACCOUNT TEST MATRIX
+============================================================
+
+Create test accounts conceptually:
+
+Google A Google B GitHub A GitHub B
 
 Verify:
 
-connect
-list
-select
-default
-role
-disconnect
-
-Ensure account A cannot accidentally perform actions using account B.
-
-68. CHAT REGRESSION TEST
-
-Explicitly test:
-
-login
-→ create chat
-→ send message
-→ database save
-→ AI request
-→ response
-→ reload page
-→ conversation remains
-→ send second message
-→ context works
-
-This flow must work from a clean environment.
-
-69. BROWSER QA
-
-Use a real browser if available.
-
-Test the actual application.
-
-Do not only run unit tests.
-
-Perform golden-path QA:
-
-Launch
-Login
-New Chat
-Send Message
-Switch Conversation
-Notes
-Files
-Settings
-AI Provider
-Google
-Gmail
-GitHub
-Account Switching
-Planner
-Logout
-70. CONSOLE ERROR AUDIT
-
-Final browser QA must have:
-
-0 unexpected console errors
-
-Investigate:
-
-hydration errors
-failed requests
-uncaught exceptions
-React warnings
-broken assets
-CORS problems
-
-Do not simply ignore errors.
-
-71. NETWORK AUDIT
-
-Inspect browser network calls.
-
-Look for:
-
-500
-401
-403
-404
-409
-429
-failed API calls
-duplicate requests
-
-Fix root causes.
-
-72. EMPTY STATES
-
-Every feature needs proper empty states.
-
-Examples:
-
-No conversations yet
-No notes yet
-No files yet
-No connected accounts
-No AI providers
-
-Do not leave blank white/black space.
-
-Provide a useful action.
-
-73. LOADING STATES
-
-Use proper loading UI.
-
-Never let users wonder whether:
-
-button worked
-request is running
-page is frozen
-74. ERROR STATES
-
-Errors must be:
-
-understandable
-actionable
-non-technical
-dismissible where appropriate
-
-Example:
-
-Instead of:
-
-D1_ERROR: FOREIGN KEY constraint failed
-
-show:
-
-We couldn't save this message. Please try again.
-75. UI QUALITY BAR
-
-The application should look like a serious modern AI product.
-
-Think:
-
-premium
-minimal
-dark
-technical
-clean
-professional
-fast
-cohesive
-
-Not:
-
-template
-student project
-admin dashboard
-prototype
-unfinished SaaS
-76. NULLFORGE VISUAL SYSTEM
-
-Use consistent:
-
-typography
-spacing
-borders
-shadows
-icon sizing
-button styles
-modal styles
-input styles
-hover states
-active states
-
-Amber should be an accent, not the entire interface.
-
-77. NO UNNECESSARY UI
-
-Remove anything that doesn't help the user.
-
-Do not fill the dashboard with fake statistics such as:
-
-12,482 messages
-99.9% uptime
-42 files
-8 AI providers
-
-unless these are actual computed values.
-
-78. REFERENCE ZIP ANALYSIS
-
-Before implementation:
-
-Extract ZIP.
-Inspect project structure.
-Read relevant source files.
-Identify existing features.
-Identify previous bugs.
-Identify useful components.
-Identify existing migrations.
-Identify APIs.
-Identify OAuth logic.
-Identify provider architecture.
-Identify UI.
-Identify product behavior.
-
-Create an internal implementation checklist from this analysis.
-
-Do not simply copy files.
-
-79. OLD PROJECT BUG AUDIT
-
-Specifically look for the classes of problems previously encountered:
-
-invalid OAuth state
-automatic GitHub connection
-Gmail auto-connection
-SQL schema mismatch
-broken chat persistence
-rigid provider cards
-placeholder integrations
-unstable chat composer
-wrong account selection
-missing multi-account routing
-fake API status
-client-side secrets
-incomplete production persistence
-
-None of these should survive into V3.
-
-80. CLEAN ROOM PRINCIPLE
-
-At the end:
-
-alpha/
-
-must be self-contained.
-
-It must NOT depend on:
-
-old Alpha folder
-old ZIP
-temporary generated files
-sandbox artifacts
-local SQLite
-random absolute paths
-developer machine state
-81. BUILD VERIFICATION
-
-Run:
-
-npm install
-
-then appropriate build commands.
+-   connect
+-   list
+-   select
+-   default
+-   role
+-   disconnect
+
+Verify account A cannot accidentally perform an operation using account
+B.
+
+============================================================ 59. CHAT
+REGRESSION TEST
+============================================================
+
+Mandatory golden path:
+
+    login
+      ->
+    new chat
+      ->
+    send message
+      ->
+    D1 persistence
+      ->
+    AI request
+      ->
+    response
+      ->
+    reload
+      ->
+    conversation persists
+      ->
+    second message
+      ->
+    context works
+
+Fix any failure discovered.
+
+============================================================ 60. BROWSER
+QA ============================================================
+
+Use a real browser/testing environment when available.
+
+Test:
+
+-   launch
+-   login
+-   chat
+-   conversation switching
+-   notes
+-   files
+-   media
+-   settings
+-   providers
+-   Google
+-   Gmail
+-   GitHub
+-   account switching
+-   planner
+-   memory
+-   logout
+
+Check console errors.
+
+Target:
+
+    0 unexpected console errors
+
+============================================================ 61. NETWORK
+QA ============================================================
+
+Inspect network requests.
+
+Investigate all:
+
+-   400
+-   401
+-   403
+-   404
+-   409
+-   429
+-   500
+
+Do not ignore failures simply because the UI appears to work.
+
+============================================================ 62.
+EMPTY/LOADING/ERROR STATES
+============================================================
+
+Every major feature needs:
+
+-   empty state
+-   loading state
+-   success state
+-   error state
+
+Errors must be human-readable and actionable.
+
+============================================================ 63. AUDIT
+LOG ============================================================
+
+Log important actions safely:
+
+-   login
+-   logout
+-   provider added/removed
+-   Google connected/disconnected
+-   GitHub connected/disconnected
+-   email sent
+-   file uploaded/deleted
+-   important account changes
+
+Never log:
+
+-   passwords
+-   API keys
+-   OAuth tokens
+-   authorization headers
+
+============================================================ 64.
+DEVELOPMENT LOOP
+============================================================
+
+Do not stop after the first successful build.
+
+Continuously:
+
+    inspect
+      ->
+    implement
+      ->
+    build
+      ->
+    test
+      ->
+    run
+      ->
+    browser QA
+      ->
+    identify bug
+      ->
+    fix
+      ->
+    regression test
+      ->
+    repeat
+
+If the environment supports the requested 15-minute development review
+automation, create/use it.
+
+The review loop should inspect:
+
+-   current implementation
+-   tests
+-   browser behavior
+-   console
+-   API errors
+-   UI
+-   security
+-   unfinished features
+
+Do not let the automation blindly rewrite working code.
+
+============================================================ 65. WORKLOG
+============================================================
+
+Maintain:
+
+    /home/z/my-project/alpha/worklog.md
+
+Record:
+
+-   milestones
+-   architecture decisions
+-   migrations
+-   features completed
+-   bugs found
+-   bugs fixed
+-   tests
+-   QA
+-   known limitations
+
+Do not record secrets.
+
+============================================================ 66.
+CLEAN-ROOM BUILD
+============================================================
+
+Before completion:
+
+1.  Create a clean temporary copy of /alpha.
+2.  Install dependencies from scratch.
+3.  Build from scratch.
+4.  Run tests.
+5.  Run OpenNext build.
+6.  Verify no dependency on:
+    -   old repository
+    -   parent project
+    -   local files
+    -   development artifacts
+    -   secrets
+
+============================================================ 67.
+PRODUCTION BUILD
+============================================================
 
 Verify:
 
-next build
+    npm install
 
-and:
+and the correct Next.js production build.
 
-opennextjs-cloudflare build
+Then verify the OpenNext/Cloudflare build.
 
-or the exact compatible commands required by the installed versions.
+Use the exact commands compatible with the installed environment.
 
-Fix every build error.
+Fix all build failures.
 
-82. CLEAN-ROOM BUILD
-
-After development:
-
-Create a fresh temporary copy.
-Install dependencies.
-Build from scratch.
-Run tests.
-Run Cloudflare/OpenNext build.
-Verify no hidden dependency on development artifacts.
-
-This is mandatory.
-
-83. PRODUCTION ENVIRONMENT DOCUMENTATION
+============================================================ 68.
+DEPLOYMENT DOCUMENTATION
+============================================================
 
 Create:
 
-DEPLOYMENT.md
+    DEPLOYMENT.md
 
-Include:
+Document:
 
-prerequisites
-Node version
-npm commands
-Cloudflare login
-D1 creation
-R2 creation
-migrations
-secrets
-OAuth setup
-callback URLs
-build
-deploy
-verification
-rollback guidance
+-   prerequisites
+-   Node/Bun requirements
+-   installation
+-   D1 setup
+-   R2 setup
+-   migrations
+-   secrets
+-   OAuth setup
+-   callback URLs
+-   build
+-   deploy command
+-   verification
+-   rollback
 
-Do NOT actually deploy.
+============================================================ 69. NO
+PRODUCTION DEPLOYMENT
+============================================================
 
-84. WRANGLER CONFIG
+DO NOT run:
 
-Provide proper configuration for:
+    wrangler deploy
 
-D1
-R2
-Worker
-assets/OpenNext
-environment variables
+Do not modify:
 
-Use placeholders for account-specific IDs if necessary.
+-   production D1
+-   production R2
+-   production Worker
+-   production DNS
+-   production secrets
+-   production OAuth configuration
 
-Do not hardcode my production credentials.
+The task is build/test/package only.
 
-85. README
+============================================================ 70. FINAL
+SOURCE TREE ============================================================
 
-README should explain:
+The final implementation must remain here:
 
-What Alpha is
-Architecture
-Features
-Project structure
-Development
-Environment variables
-Testing
-Cloudflare setup
-Deployment
-OAuth setup
-Security model
-86. FINAL FEATURE AUDIT
+    /home/z/my-project/alpha/
 
-Before declaring completion, inspect every feature.
+It must be self-contained.
 
-For each feature answer internally:
+It must not require:
 
-Does it exist?
-Does UI work?
-Does API work?
-Does DB work?
-Does auth work?
-Does error handling work?
-Does mobile work?
-Does it have tests?
+    /home/z/my-project/alpha-reference
 
-Do not mark complete just because a page exists.
+to run.
 
-87. FINAL PLACEHOLDER AUDIT
+============================================================ 71. FINAL
+ZIP ============================================================
 
-Search entire project for:
-
-TODO
-FIXME
-coming soon
-placeholder
-mock
-dummy
-fake
-demo
-temporarily
-not implemented
-
-Investigate every result.
-
-Remove production-facing unfinished functionality.
-
-88. FINAL SECURITY AUDIT
-
-Search for:
-
-console.log(secret)
-API_KEY
-CLIENT_SECRET
-ACCESS_TOKEN
-REFRESH_TOKEN
-password
-
-Ensure secrets are not accidentally exposed.
-
-Review:
-
-server/client boundaries
-imports
-environment variables
-API responses
-logs
-89. FINAL DATABASE AUDIT
-
-Verify:
-
-every table
-every migration
-every query
-every foreign key
-every index
-every repository
-
-against actual D1 schema.
-
-Run database integration tests.
-
-90. FINAL API AUDIT
-
-Generate an internal list of all API routes.
-
-For every route verify:
-
-method
-authentication
-authorization
-validation
-database
-external API
-errors
-response
-
-No route should be dead.
-
-91. FINAL USER JOURNEY
-
-Test this exact journey:
-
-Open Alpha
-↓
-Launch animation
-↓
-Login
-↓
-Main UI
-↓
-New Chat
-↓
-Send message
-↓
-AI responds
-↓
-Reload
-↓
-Conversation persists
-↓
-Create note
-↓
-Upload file
-↓
-Open file
-↓
-Add AI provider
-↓
-Test provider
-↓
-Connect Google
-↓
-Connect second Google account
-↓
-Switch Gmail account
-↓
-Search Gmail
-↓
-Prepare email
-↓
-Confirm send
-↓
-Connect GitHub
-↓
-Connect second GitHub
-↓
-Assign Storage/Scripts roles
-↓
-Switch GitHub account
-↓
-Inspect repositories/issues/PRs
-↓
-Planner
-↓
-Memory
-↓
-Logout
-
-Fix anything that breaks.
-
-92. NO DEPLOYMENT
-
-This is critical.
-
-You are responsible for:
-
-development
-testing
-building
-packaging
-documentation
-
-You are NOT responsible for production deployment.
-
-Do NOT run:
-
-wrangler deploy
-
-Do NOT modify my production:
-
-D1
-R2
-Worker
-DNS
-secrets
-OAuth configuration
-
-unless explicitly requested later.
-
-93. FINAL ZIP
-
-After everything is complete:
-
-Create a clean production ZIP.
-
-It must contain:
-
-alpha/
-
-source code and required configuration.
+Create a clean final ZIP.
 
 Exclude:
 
-node_modules
-.next
-.open-next
-.git
-secrets
-.env
-temporary logs
-screenshots
-test artifacts
-nested ZIPs
+-   node_modules
+-   .next
+-   .open-next
+-   .git
+-   .env
+-   secrets
+-   temporary logs
+-   screenshots
+-   test artifacts
+-   nested ZIPs
 
-unless a generated artifact is explicitly required.
+Include:
 
-94. ZIP VERIFICATION
+-   source
+-   migrations
+-   scripts
+-   tests
+-   configuration
+-   README
+-   DEPLOYMENT.md
+-   .env.example
+-   worklog.md
 
-Before delivering:
+============================================================ 72. FINAL
+ZIP VERIFICATION
+============================================================
 
-Extract final ZIP.
-Confirm project structure.
-Confirm no secrets.
-Confirm no nested ZIP.
-Install dependencies in clean environment.
-Run tests.
-Run production build.
-Run OpenNext build.
-Verify final source.
+After creating the ZIP:
 
-Then calculate:
+1.  Extract it.
+2.  Confirm structure.
+3.  Confirm no secrets.
+4.  Confirm no nested ZIP.
+5.  Install dependencies.
+6.  Run tests.
+7.  Run production build.
+8.  Run OpenNext build.
+9.  Confirm the extracted copy works independently.
 
-SHA-256
+Calculate SHA-256.
 
-of the final ZIP.
+============================================================ 73. FINAL
+COMPLETION REPORT
+============================================================
 
-95. FINAL REPORT
+Report actual results only.
 
-At completion provide a detailed report containing:
+Include:
 
-Architecture
-framework
-Worker
-D1
-R2
-authentication
-AI router
-Database
-tables
-migrations
-indexes
-Features
-chat
-context
-memory
-notes
-files
-media
-planner
-providers
-Gmail
-GitHub
-OAuth
-Google
-Gmail
-GitHub
-multi-account
-account resolver
-Security
-encryption
-sessions
-authorization
-OAuth state
-secret handling
-Testing
+Architecture Database Migrations Authentication Chat Context Memory
+Notes Files/R2 AI providers Google/Gmail Multiple Google accounts GitHub
+Multiple GitHub accounts GitHub roles Planner Security API routes UI
+Responsive QA Accessibility Testing Browser QA Build Clean-room build
+Known limitations Final ZIP path Final ZIP SHA-256
 
-Report actual numbers.
+Never invent test counts.
 
-Example:
+Never claim a feature is complete unless it was actually tested.
 
-Unit tests: XX/XX
-Integration tests: XX/XX
-Security tests: XX/XX
-OAuth tests: XX/XX
-Browser QA: XX/XX
+============================================================ 74.
+DEFINITION OF DONE
+============================================================
 
-Do NOT invent numbers.
+Alpha V3 is complete only when:
 
-Build
+-   /home/z/my-project/alpha exists
+-   it is a fresh independent project
+-   reference project is separate
+-   no Prisma
+-   no SQLite production persistence
+-   D1 works
+-   R2 works
+-   authentication works
+-   authorization works
+-   chat works
+-   chat persists
+-   context works
+-   memory works
+-   notes work
+-   files work
+-   media works
+-   AI providers work
+-   provider credentials are encrypted
+-   Google OAuth works
+-   Gmail works
+-   multiple Google accounts work
+-   GitHub OAuth works
+-   multiple GitHub accounts work
+-   GitHub roles work
+-   account resolver works
+-   planner works
+-   APIs are audited
+-   security is audited
+-   UI is polished
+-   launch animation works
+-   no automatic OAuth
+-   no fake production features
+-   no placeholders
+-   no known schema/query mismatch
+-   automated tests pass
+-   browser QA passes
+-   clean-room build passes
+-   deployment documentation exists
+-   final ZIP is clean
+-   production deployment was NOT performed
 
-Report actual results.
+============================================================ 75.
+ABSOLUTE RULES
+============================================================
 
-Clean-room build
+RULE 1: The fresh project MUST be in:
 
-Report whether it passed.
+    /home/z/my-project/alpha/
 
-Remaining limitations
+RULE 2: The old/reference project MUST remain separate:
 
-Only list genuine limitations.
+    /home/z/my-project/alpha-reference/
 
-Do not hide known problems.
+RULE 3: Never move Alpha V3 into /home/z/my-project.
 
-Final ZIP
+RULE 4: Never use Prisma or SQLite for production persistence.
 
-Provide:
+RULE 5: Use Cloudflare D1 for structured persistence.
 
-path
-filename
-size
-SHA-256
-96. DEFINITION OF DONE
+RULE 6: Use Cloudflare R2 for object storage.
 
-Alpha V3 is considered complete ONLY when:
+RULE 7: Never commit secrets.
 
-fresh /alpha project exists
-Cloudflare-native architecture is implemented
-D1 persistence works
-R2 storage works
-auth works
-chat works
-chat persistence works
-context works
-memory works
-notes work
-files work
-AI provider system works
-provider encryption works
-Google OAuth works
-Gmail works
-multiple Google accounts work
-GitHub OAuth works
-multiple GitHub accounts work
-GitHub roles work
-account resolver works
-planner works
-API routes are audited
-security is audited
-UI is polished
-responsive behavior works
-launch animation works
-no automatic OAuth connections
-no fake features
-no placeholder production UI
-no known SQL/schema mismatch
-tests pass
-browser QA passes
-clean-room build passes
-final ZIP is clean
-deployment documentation exists
-deployment has NOT been performed
-97. IMPORTANT ENGINEERING BEHAVIOR
+RULE 8: Never automatically connect OAuth.
 
-Do not stop because the first build passes.
+RULE 9: Never silently choose between multiple external accounts.
 
-Do not stop because tests pass.
+RULE 10: Never ship fake functionality.
 
-Do not stop because the UI looks acceptable.
+RULE 11: Never declare completion based only on compilation.
 
-Keep iterating:
+RULE 12: Never deploy to production.
 
-BUILD
-↓
-TEST
-↓
-RUN
-↓
-INSPECT
-↓
-FIND BUG
-↓
-FIX
-↓
-REGRESSION TEST
-↓
-REPEAT
+RULE 13: If a feature cannot be completed correctly, report it honestly
+instead of creating a fake implementation.
 
-Use the available environment aggressively for testing and verification.
+RULE 14: Do not ask the user to manually fix issues that can reasonably
+be diagnosed and fixed within the development environment.
 
-If you discover a better implementation than the old ZIP, use the better implementation.
+RULE 15: The final source must be independently buildable from the
+/alpha directory.
 
-If the old ZIP contains a feature that is not explicitly described above, determine whether it is part of Alpha's intended product behavior from the reference implementation and preserve it where appropriate.
+============================================================ 76. START
+NOW ============================================================
 
-Do not remove meaningful existing functionality simply because it wasn't explicitly listed.
+FIRST:
 
-98. MOST IMPORTANT RULE
+1.  Fetch/clone the supplied reference repository into:
 
-The goal is NOT:
+        /home/z/my-project/alpha-reference
 
-“Make the old Alpha build again.”
+2.  Inspect it thoroughly.
 
-The goal is:
+3.  Inspect PRD.TXT and any reference ZIP.
 
-Build a clean, complete, production-ready Alpha V3 from a fresh project, using the old ZIP only as a reference for existing product functionality and lessons learned.
+4.  Produce an internal feature/architecture checklist.
 
-The final result must feel like a real finished AI agent, not a scaffold or prototype.
+5.  Create:
 
-START NOW
+        /home/z/my-project/alpha/
 
-First:
+6.  Initialize the fresh Cloudflare-compatible Alpha V3 project.
 
-Inspect the provided ZIP completely.
-Understand the old Alpha architecture and feature set.
-Create:
-/home/z/my-project/alpha/
-Initialize the fresh Cloudflare-compatible environment.
-Build Alpha V3 feature by feature.
-Continuously test and repair.
-Perform browser QA.
-Perform security audit.
-Perform clean-room build.
-Create the final clean ZIP.
-Provide the detailed completion report.
+7.  Implement the complete product.
 
-Do not deploy anything to production.
+8.  Test continuously.
 
-Do not ask me to manually fix something that you can reasonably diagnose and fix yourself.
+9.  Run browser QA.
 
-Do not declare the project complete merely because it compiles.
+10. Fix all discovered issues.
 
-Build the actual product.
+11. Perform security and database audits.
+
+12. Perform a clean-room build.
+
+13. Create the final ZIP.
+
+14. Provide the final completion report.
+
+DO NOT DEPLOY.
+
+DO NOT USE PRISMA.
+
+DO NOT USE SQLITE FOR PRODUCTION.
+
+DO NOT BUILD INSIDE THE PARENT SCAFFOLD.
+
+BUILD THE ACTUAL ALPHA V3 PRODUCT INSIDE:
+
+    /home/z/my-project/alpha/
